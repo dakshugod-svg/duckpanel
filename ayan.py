@@ -4233,7 +4233,7 @@ def home_page():
             for name, user in d.get("users", {}).items()
         ]
         users.sort(key=lambda u: u["name"].lower())
-    owners = ["AYAN", "ARYAN", "SCAR", "PREDATOR"]
+    owners = ["DAKSH", "AYAN", "ARYAN", "SCAR", "PREDATOR"]
     visible_users = users if session.get("login_role") == "admin" else []
     return render_template_string(HOME_HTML, users=visible_users, user_count=len(visible_users),
                                   owners=owners,
