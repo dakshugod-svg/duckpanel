@@ -1,0 +1,6 @@
+Flask
+instagrapi
+igrapiweb
+python-dotenv
+cryptography
+Werkzeug
