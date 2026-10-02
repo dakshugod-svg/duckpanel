@@ -23,7 +23,7 @@ except Exception as exc:
                                                                                              
 BREVO_API_KEY = os.getenv("BREVO_API_KEY", "").strip()
 BREVO_SENDER_EMAIL = os.getenv("BREVO_SENDER_EMAIL", "").strip()
-BREVO_SENDER_NAME = os.getenv("BREVO_SENDER_NAME", "SINISTERS SX7").strip()
+BREVO_SENDER_NAME = os.getenv("BREVO_SENDER_NAME", "DAKSH SX7").strip()
 
 def send_otp_email(to_email, username, otp):
     if not BREVO_API_KEY:
@@ -34,17 +34,17 @@ def send_otp_email(to_email, username, otp):
     payload = {
         "sender": {"name": BREVO_SENDER_NAME, "email": BREVO_SENDER_EMAIL},
         "to": [{"email": to_email, "name": username}],
-        "subject": "SINISTERS SX7 • Registration OTP",
+        "subject": "DAKSH SX7 • Registration OTP",
         "textContent": (
             f"Hello {username},\n\n"
-            f"Your SINISTERS SX7 registration OTP is: {otp}\n\n"
+            f"Your DAKSH SX7 registration OTP is: {otp}\n\n"
             f"This OTP expires in {OTP_EXPIRY_SECONDS // 60} minutes.\n"
             "If you did not request this, you can ignore this email.\n\n"
-            "SINISTERS SX7"
+            "DAKSH SX7"
         ),
         "htmlContent": f"""
         <div style="font-family:Arial,sans-serif;max-width:520px;margin:auto;padding:24px">
-          <h2>SINISTERS SX7</h2>
+          <h2>DAKSH SX7</h2>
           <p>Hello {username},</p>
           <p>Your registration OTP is:</p>
           <div style="font-size:32px;font-weight:700;letter-spacing:8px;
@@ -91,7 +91,7 @@ app.wsgi_app = ProxyFix(app.wsgi_app, x_for=1, x_proto=1, x_host=1, x_port=1)
 
 # Security configuration: all secrets must be supplied through environment variables.
 PANEL_SECRET_KEY = os.environ.get("PANEL_SECRET_KEY", "").strip()
-PANEL_USERNAME = os.environ.get("PANEL_USERNAME", "SINISTERS").strip()
+PANEL_USERNAME = os.environ.get("PANEL_USERNAME", "DAKSH").strip()
 PANEL_PASSWORD_HASH = os.environ.get("PANEL_PASSWORD_HASH", "").strip()
 if not PANEL_SECRET_KEY or len(PANEL_SECRET_KEY) < 32:
     raise RuntimeError("PANEL_SECRET_KEY must be set to a random value of at least 32 characters.")
@@ -172,7 +172,7 @@ LOGIN_HTML = r"""<!DOCTYPE html>
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"/>
-<title>SINISTERS SX7 • Login</title>
+<title>DAKSH SX7 • Login</title>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Orbitron:wght@500;600;700;800;900&display=swap" rel="stylesheet"/>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
@@ -951,7 +951,7 @@ def ravan_worker(acc_id, acc, stop_event):
     groups = [extract_thread_id(g) for g in acc.get("groups", "").split("\n") if g.strip()]
     groups = groups[:1]
     titles = [t.strip() for t in acc.get("nc_titles", "").split(",") if t.strip()]
-    message_mode = acc.get("message_mode", "SINISTERS")
+    message_mode = acc.get("message_mode", "DAKSH")
     target_name = acc.get("target_name", "").strip()
     messages = []
 
@@ -963,7 +963,7 @@ def ravan_worker(acc_id, acc, stop_event):
         bot_status[acc_id] = {"running": False, "sent": 0, "failed": 0, "last_action": "No group selected"}
         return
 
-    if message_mode == "SINISTERS":
+    if message_mode == "DAKSH":
         try:
             with open("msg.txt", "r", encoding="utf-8") as f:
                 template_message = f.read()
@@ -1094,9 +1094,9 @@ def ravan_worker(acc_id, acc, stop_event):
 
 
 def _multi_messages(acc):
-    mode = acc.get("message_mode", "SINISTERS")
+    mode = acc.get("message_mode", "DAKSH")
     target = acc.get("target_name", "").strip()
-    if mode == "SINISTERS":
+    if mode == "DAKSH":
         try:
             with open("msg.txt", "r", encoding="utf-8") as f:
                 return [f.read().replace("<t>", target)]
@@ -1426,10 +1426,10 @@ def bot_worker(acc_id, acc, stop_event):
     raw_groups = [extract_thread_id(g) for g in acc.get("groups", "").split("\n") if g.strip()]
     groups = raw_groups[:5]
     titles = [t.strip() for t in acc.get("nc_titles", "").split(",") if t.strip()]
-    message_mode = acc.get("message_mode", "SINISTERS")
+    message_mode = acc.get("message_mode", "DAKSH")
     target_name = acc.get("target_name", "").strip()
     messages = []
-    if message_mode == "SINISTERS":
+    if message_mode == "DAKSH":
         try:
             with open("msg.txt", "r", encoding="utf-8") as f:
                 template_message = f.read()
@@ -1757,7 +1757,7 @@ HTML = r"""<!DOCTYPE html>
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"/>
-<title>SINISTERS SX7</title>
+<title>DAKSH SX7</title>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Rajdhani:wght@400;500;600;700&family=Share+Tech+Mono&display=swap" rel="stylesheet"/>
 <style>
 :root{
@@ -1976,19 +1976,19 @@ input,textarea,select,.search{
 <div id="atc-panel-overlay" aria-hidden="true"></div>
 <div class="shell">
 <aside class="sidebar">
-  <div class="brand"><div><div class="brand-name">SINISTERS SX7</div><div class="brand-sub">PANEL</div></div></div>
+  <div class="brand"><div><div class="brand-name">DAKSH SX7</div><div class="brand-sub">PANEL</div></div></div>
   <nav class="nav">
     <a class="nav-item active" href="/"><span class="nav-icon"><img src="https://cdn.21st.dev/assets/mirror/99/9963f31f43cd77b0c28981ba7bac04db749a5749019f554d1afb75225a3e9151.png" alt="" aria-hidden="true"></span><span class="nav-label">Home</span></a>
     <a class="nav-item" href="/instagram"><span class="nav-icon"><img src="https://cdn.21st.dev/assets/mirror/d5/d558230225bb0dd1897db6c7cf0d03b29506eef8078fe25313c48cd8f72d05ad.png" alt="" aria-hidden="true"></span><span class="nav-label">Instagram</span></a>
     <a class="nav-item" href="/contact"><span class="nav-icon"><img src="https://cdn.21st.dev/assets/mirror/7b/7bb8671183d2a2bbb8a3858b1971cc5699ba0103673b011590d22f0fa309bb87.png" alt="" aria-hidden="true"></span><span class="nav-label">Contact</span></a>
     <a class="nav-item" href="/gc-creator"><span class="nav-icon gc-creator-icon">＋</span><span class="nav-label">GC Creator</span></a>
   </nav>
-  <div class="side-bottom"><div class="side-owner"><strong>SINISTERS SX7</strong>PANEL • v2.0</div></div>
+  <div class="side-bottom"><div class="side-owner"><strong>DAKSH SX7</strong>PANEL • v2.0</div></div>
 </aside>
 <main class="main" id="dashboard">
   <div class="topbar panel-top">
     <div class="panel-brand">
-      <h1>SINISTERS <span>SX7</span></h1>
+      <h1>DAKSH <span>SX7</span></h1>
       <div class="logged-user">YOUR USERNAME • <b>{{ login_username }}</b></div>
     </div>
     <div class="top-actions">
@@ -2100,14 +2100,14 @@ input,textarea,select,.search{
       <div class="form-group full">
         <label>Message Type</label>
         <select id="f-message-mode" onchange="toggleMessageMode()">
-          <option value="SINISTERS">SINISTERS SX7 TEXT</option>
+          <option value="DAKSH">DAKSH SX7 TEXT</option>
           <option value="CUSTOM">CUSTOM MESSAGE</option>
         </select>
       </div>
       <div class="form-group full" id="target-name-wrap">
         <label>Target Name</label>
         <input type="text" id="f-target-name" placeholder="Target name"/>
-        <div class="hint">OG SINISTERS TEXT</div>
+        <div class="hint">OG DAKSH TEXT</div>
       </div>
     </div>
     <div id="custom-message-wrap" style="display:none;margin-top:10px">
@@ -2349,7 +2349,7 @@ function openAddModal() {
   document.getElementById('modal-title').textContent = 'Add Instagram ID';
   document.getElementById('f-name').value = '';
   document.getElementById('f-method').value = 'INSTAGRAPI';
-  document.getElementById('f-message-mode').value = 'SINISTERS';
+  document.getElementById('f-message-mode').value = 'DAKSH';
   document.getElementById('f-target-name').value = '';
   document.getElementById('f-sid').value = '';
   document.getElementById('f-csrf').value = '';
@@ -2386,7 +2386,7 @@ function openEditModal(id) {
   document.getElementById('f-name').value = acc.name || '';
   document.getElementById('f-method').value = acc.method || 'INSTAGRAPI';
   handleMethodChange();
-  document.getElementById('f-message-mode').value = acc.message_mode || 'SINISTERS';
+  document.getElementById('f-message-mode').value = acc.message_mode || 'DAKSH';
   document.getElementById('f-target-name').value = acc.target_name || '';
   document.getElementById('f-sid').value = '';
   document.getElementById('f-sid').placeholder = acc.session_id_set ? 'Session ID already saved — leave blank to keep it' : 'Session ID';
@@ -2422,7 +2422,7 @@ function toggleMessageMode() {
   const mode = document.getElementById('f-message-mode').value;
   const targetWrap = document.getElementById('target-name-wrap');
   const customWrap = document.getElementById('custom-message-wrap');
-  targetWrap.style.display = mode === 'SINISTERS' ? 'block' : 'none';
+  targetWrap.style.display = mode === 'DAKSH' ? 'block' : 'none';
   customWrap.style.display = mode === 'CUSTOM' ? 'block' : 'none';
 }
 
@@ -2430,7 +2430,7 @@ async function saveAccount() {
   const messageMode = document.getElementById('f-message-mode').value;
   const msgs = getMsgs();
   const targetName = document.getElementById('f-target-name').value.trim();
-  if (messageMode === 'SINISTERS' && !targetName) { alert('Enter Target Name'); return; }
+  if (messageMode === 'DAKSH' && !targetName) { alert('Enter Target Name'); return; }
   if (messageMode === 'CUSTOM' && !msgs.length) { alert('Add at least one message'); return; }
 
   const body = {
@@ -3232,7 +3232,7 @@ HOME_HTML = r"""<!DOCTYPE html>
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>SINISTERS SX7 • Home</title>
+<title>DAKSH SX7 • Home</title>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Instrument+Serif:ital@0;1&family=Share+Tech+Mono&display=swap" rel="stylesheet">
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
@@ -3324,8 +3324,8 @@ h1 em{font-style:italic;color:#fff}
 
 <main class="main">
  <div class="hero-copy">
-  <div class="badge"><span class="badge-label">{% if login_role == 'admin' %}ADMIN{% else %}PRIVATE{% endif %}</span><span class="badge-text">SINISTERS SX⁷ CONTROL CENTER</span></div>
-  <h1>Welcome to<br><em>SINISTERS SX⁷</em></h1>
+  <div class="badge"><span class="badge-label">{% if login_role == 'admin' %}ADMIN{% else %}PRIVATE{% endif %}</span><span class="badge-text">DAKSH SX⁷ CONTROL CENTER</span></div>
+  <h1>Welcome to<br><em>DAKSH SX⁷</em></h1>
   <p class="description">{% if login_role == 'admin' %}Full administrative control in one place. Manage registered users, access and your connected automation workspace.{% else %}Your private workspace for managing connected Instagram automation. Open your panel and control everything from one place.{% endif %}</p>
   <div class="actions">
    <a class="primary" href="/instagram">◎ OPEN INSTAGRAM PANEL <span class="icon">↗</span></a>
@@ -3413,7 +3413,7 @@ PARALLAX_INSTAGRAM_HTML = r"""<!DOCTYPE html>
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"/>
-<title>SINISTERS SX7 • Instagram</title>
+<title>DAKSH SX7 • Instagram</title>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Instrument+Serif:ital@0;1&family=Share+Tech+Mono&display=swap" rel="stylesheet"/>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
@@ -3486,7 +3486,7 @@ linear-gradient(180deg,#050608,#0a0b0e)}
     <div class="parallax__layers" data-parallax-layers>
       <img src="https://cdn.21st.dev/assets/mirror/a4/a43f4eae3459c461345ee676f12d6e1ddca65e8a5279a5af00d475b17ff83aea.webp" loading="eager" data-parallax-layer="1" alt="" class="parallax__layer-img"/>
       <img src="https://cdn.21st.dev/assets/mirror/50/50ca6a0d36d2780bfcb469d6db7eaec0be7e0d2961ba69a63d2a1473b040338d.webp" loading="eager" data-parallax-layer="2" alt="" class="parallax__layer-img"/>
-      <div data-parallax-layer="3" class="parallax__layer-title"><h2 class="parallax__title">SINISTERS</h2></div>
+      <div data-parallax-layer="3" class="parallax__layer-title"><h2 class="parallax__title">DAKSH</h2></div>
       <img src="https://cdn.21st.dev/assets/mirror/e1/e1c8137b5f971c3b3ec1a0f9e79b9c17018767005f844a10082b890472afecfb.webp" loading="eager" data-parallax-layer="4" alt="" class="parallax__layer-img"/>
     </div>
     <div class="parallax__black-line-overflow"></div>
@@ -3506,7 +3506,7 @@ linear-gradient(180deg,#050608,#0a0b0e)}
   </header>
 
   <div class="parallax__hero-copy">
-    <div class="parallax__eyebrow">SINISTERS SX⁷ • INSTAGRAM WORKSPACE</div>
+    <div class="parallax__eyebrow">DAKSH SX⁷ • INSTAGRAM WORKSPACE</div>
     <h1>Enter the <em>Instagram</em> workspace.</h1>
     <div class="parallax__actions">
       <a class="parallax__btn primary" href="/panel">◎ OPEN PANEL ↗</a>
@@ -3532,11 +3532,11 @@ linear-gradient(180deg,#050608,#0a0b0e)}
       <article class="portal-card" id="contact-card">
         <div class="portal-icon">✉</div>
         <h3>Contact</h3>
-        <p>Need help or want to reach SINISTERS SX7? Continue to the existing contact page.</p>
+        <p>Need help or want to reach DAKSH SX7? Continue to the existing contact page.</p>
         <a class="portal-link" href="/contact">OPEN CONTACT ↗</a>
       </article>
     </div>
-    <div class="portal-footer">SINISTERS SX⁷ • {{ login_username|e }} • {{ login_role|upper }}</div>
+    <div class="portal-footer">DAKSH SX⁷ • {{ login_username|e }} • {{ login_role|upper }}</div>
   </div>
 </section>
 </div>
@@ -3600,7 +3600,7 @@ CONTACT_HTML = r"""<!DOCTYPE html>
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>SINISTERS SX7 • Contact</title>
+<title>DAKSH SX7 • Contact</title>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
 <style>
 *{box-sizing:border-box;margin:0;padding:0}body{min-height:100vh;background:radial-gradient(circle at 15% 0,#8b123522,transparent 32%),radial-gradient(circle at 90% 100%,#c6a66718,transparent 35%),linear-gradient(135deg,#07080b,#111217 55%,#08090c);color:#eee7da;font-family:Inter,Arial,sans-serif;padding:30px 22px 120px}.page{max-width:1120px;margin:auto}.top{display:flex;align-items:center;justify-content:space-between;margin-bottom:28px}.logo{font:700 23px 'Playfair Display',serif;letter-spacing:2px}.logo span{color:#d0ae67}.logout{color:#d2bc8b;text-decoration:none;border:1px solid #514a40;padding:9px 14px;border-radius:10px;font-size:10px;letter-spacing:1px;background:#101115}.hero{position:relative;overflow:hidden;border:1px solid #4b4541;border-radius:28px;padding:48px;background:linear-gradient(145deg,#17191f,#0d0f13 70%);box-shadow:0 35px 100px #000b}.hero:after{content:"";position:absolute;right:-80px;top:-120px;width:330px;height:330px;border:1px solid #c6a66722;border-radius:50%;box-shadow:0 0 0 35px #c6a66708,0 0 0 70px #c6a66705}.eyebrow{font-size:9px;color:#c9aa6b;letter-spacing:4px;margin-bottom:14px}.hero h1{font:700 clamp(44px,8vw,72px) 'Playfair Display',serif;line-height:.95}.hero h1 span{color:#b9975b}.hero p{max-width:690px;margin-top:20px;color:#949aa2;line-height:1.8;font-size:12px}.section{margin-top:20px;border:1px solid #3d4147;border-radius:22px;background:linear-gradient(145deg,#14161b,#0b0d11);padding:26px;box-shadow:0 20px 70px #0007}.section-head{margin-bottom:18px}.section h2{font:600 25px 'Playfair Display',serif}.section-head small{display:block;margin-top:5px;color:#858b92;font-size:9px;letter-spacing:1.5px}.contact-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}.contact{display:flex;align-items:center;gap:14px;border:1px solid #34383e;background:linear-gradient(145deg,#0b0d10,#111318);border-radius:15px;padding:18px;text-decoration:none;color:#eee7da;transition:.2s}.contact:hover{transform:translateY(-2px);border-color:#8d7141;box-shadow:0 14px 35px #0008}.icon{width:46px;height:46px;border-radius:13px;display:grid;place-items:center;background:linear-gradient(145deg,#74142f,#211419);border:1px solid #a9874e;color:#e4ce98;font-size:20px;flex:none}.label{font-size:8px;color:#747b83;letter-spacing:1.5px;text-transform:uppercase}.value{margin-top:5px;font-weight:700;font-size:12px;word-break:break-word}.nav{position:fixed;bottom:18px;left:50%;transform:translateX(-50%);width:min(600px,calc(100vw - 30px));display:grid;grid-template-columns:repeat(3,1fr);gap:5px;padding:8px;border:1px solid #4b4743;border-radius:17px;background:#111318f2;backdrop-filter:blur(18px);box-shadow:0 18px 60px #000c}.nav a{padding:12px 8px;text-align:center;text-decoration:none;color:#aeb3b8;border-radius:11px;font-size:10px;font-weight:700;letter-spacing:1px}.nav a:hover,.nav a.active{background:linear-gradient(135deg,#77152f30,#b9975b12);color:#ecd8a7}.sym{display:block;font-size:20px;margin-bottom:3px;color:#c6a667}@media(max-width:650px){.hero{padding:32px 24px}.contact-grid{grid-template-columns:1fr}.section{padding:20px}}
@@ -3608,11 +3608,11 @@ CONTACT_HTML = r"""<!DOCTYPE html>
 </head>
 <body>
 <div class="page">
-  <div class="top"><div class="logo">⚡ SINISTERS <span>SX7</span></div><a class="logout" href="/logout">LOG OUT</a></div>
+  <div class="top"><div class="logo">⚡ DAKSH <span>SX7</span></div><a class="logout" href="/logout">LOG OUT</a></div>
   <section class="hero">
     <div class="eyebrow">DIRECT CONTACT</div>
     <h1>GET IN <span>TOUCH</span></h1>
-    <p>Use any of the contact options below to reach SINISTERS SX7.</p>
+    <p>Use any of the contact options below to reach DAKSH SX7.</p>
   </section>
   <section class="section">
     <div class="section-head"><h2>Contact Details</h2><small>OFFICIAL CONTACT CHANNELS</small></div>
@@ -3649,7 +3649,7 @@ GC_CREATOR_HTML = r"""<!DOCTYPE html>
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>SINISTERS SX7 • GC Creator</title>
+<title>DAKSH SX7 • GC Creator</title>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:wght@600;700&family=Share+Tech+Mono&display=swap" rel="stylesheet">
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
@@ -3720,19 +3720,19 @@ button,input,textarea{font:inherit}
 
 <div class="shell">
 <aside class="sidebar">
-  <div class="brand"><div><div class="brand-name">SINISTERS SX7</div><div class="brand-sub">PANEL</div></div></div>
+  <div class="brand"><div><div class="brand-name">DAKSH SX7</div><div class="brand-sub">PANEL</div></div></div>
   <nav class="nav">
     <a class="nav-item" href="/"><span class="nav-icon"><img src="https://cdn.21st.dev/assets/mirror/99/9963f31f43cd77b0c28981ba7bac04db749a5749019f554d1afb75225a3e9151.png" alt="" aria-hidden="true"></span><span class="nav-label">Home</span></a>
     <a class="nav-item" href="/instagram"><span class="nav-icon"><img src="https://cdn.21st.dev/assets/mirror/d5/d558230225bb0dd1897db6c7cf0d03b29506eef8078fe25313c48cd8f72d05ad.png" alt="" aria-hidden="true"></span><span class="nav-label">Instagram</span></a>
     <a class="nav-item" href="/contact"><span class="nav-icon"><img src="https://cdn.21st.dev/assets/mirror/7b/7bb8671183d2a2bbb8a3858b1971cc5699ba0103673b011590d22f0fa309bb87.png" alt="" aria-hidden="true"></span><span class="nav-label">Contact</span></a>
     <a class="nav-item active" href="/gc-creator"><span class="nav-icon gc-creator-icon">＋</span><span class="nav-label">GC Creator</span></a>
   </nav>
-  <div class="side-bottom"><div class="side-owner"><strong>SINISTERS SX7</strong>PANEL • v2.0</div></div>
+  <div class="side-bottom"><div class="side-owner"><strong>DAKSH SX7</strong>PANEL • v2.0</div></div>
 </aside>
 
 <main class="main">
   <div class="topbar">
-    <div><h1>SINISTERS <span>SX7</span></h1><p>GC CREATOR • {{ login_username|e }}</p></div>
+    <div><h1>DAKSH <span>SX7</span></h1><p>GC CREATOR • {{ login_username|e }}</p></div>
   </div>
 
   <div class="toolbar">
@@ -4286,7 +4286,7 @@ def get_accounts():
         result[acc_id] = {
             "name":           acc.get("name", ""),
             "method":         acc.get("method", "INSTAGRAPI"),
-            "message_mode":   acc.get("message_mode", "SINISTERS"),
+            "message_mode":   acc.get("message_mode", "DAKSH"),
             "target_name":    acc.get("target_name", ""),
             "session_id_set": bool(acc.get("session_id")),
             "csrf_token_set": bool(acc.get("csrf_token")),
@@ -4345,7 +4345,7 @@ def add_account():
     entry = {
         "name":           body.get("name", ""),
         "method":         body.get("method", "INSTAGRAPI"),
-        "message_mode":   body.get("message_mode", "SINISTERS"),
+        "message_mode":   body.get("message_mode", "DAKSH"),
         "target_name":    body.get("target_name", ""),
         "owner":          current_owner(),
         "session_id":     session_id,
